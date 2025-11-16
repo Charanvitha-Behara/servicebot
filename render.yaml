@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: servicebot
+    env: python
+    runtime: python3
+    region: oregon
+    plan: free    # change if needed
+    buildCommand: |
+      pip install --upgrade pip
+      pip install -r requirements.txt
+    startCommand: uvicorn app:app --host 0.0.0.0 --port $PORT
+
+    envVars:
+      - key: MONGO_URI
+        sync: false
+      - key: DB_NAME
+        value: servicebot_db
+      - key: GROQ_API_KEY
+        sync: false
+      - key: SEARCH_API_KEY
+        sync: false
+      - key: SEARCH_ENGINE_ID
+        sync: false
